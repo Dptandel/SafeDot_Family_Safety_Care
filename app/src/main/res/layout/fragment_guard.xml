@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg"
+    tools:context=".fragments.GuardFragment">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_16dp"
+        android:text="Security"
+        android:textSize="@dimen/dimen_24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/pink_card"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_180dp"
+        android:layout_margin="@dimen/dimen_16dp"
+        android:elevation="@dimen/dimen_16dp"
+        app:cardBackgroundColor="@color/pink"
+        app:cardCornerRadius="@dimen/dimen_16dp"
+        app:cardElevation="@dimen/dimen_16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <TextView
+        android:id="@+id/tv_sos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_16dp"
+        android:elevation="@dimen/dimen_16dp"
+        android:text="SOS"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/pink_card"
+        app:layout_constraintTop_toTopOf="@id/pink_card" />
+
+    <TextView
+        android:id="@+id/tv_sos_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_16dp"
+        android:layout_marginEnd="36dp"
+        android:elevation="@dimen/dimen_16dp"
+        android:text="In case of emergency, keep telling family members to contact me"
+        android:textColor="@color/colorText"
+        android:textSize="@dimen/dimen_18sp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@id/pink_card"
+        app:layout_constraintTop_toBottomOf="@id/tv_sos" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/dimen_120dp"
+        android:layout_height="@dimen/dimen_180dp"
+        android:layout_margin="@dimen/dimen_16dp"
+        android:elevation="@dimen/dimen_16dp"
+        android:src="@drawable/ic_sos"
+        app:layout_constraintBottom_toBottomOf="@id/pink_card"
+        app:layout_constraintEnd_toEndOf="@id/pink_card"
+        app:layout_constraintTop_toTopOf="@id/pink_card" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/green_card"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_180dp"
+        android:layout_margin="@dimen/dimen_16dp"
+        app:cardBackgroundColor="@color/green"
+        app:cardCornerRadius="@dimen/dimen_16dp"
+        app:cardElevation="@dimen/dimen_16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pink_card" />
+
+    <TextView
+        android:id="@+id/tv_guard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_16dp"
+        android:elevation="@dimen/dimen_16dp"
+        android:text="Guard"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/green_card"
+        app:layout_constraintTop_toTopOf="@id/green_card" />
+
+    <TextView
+        android:id="@+id/tv_guard_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_16dp"
+        android:elevation="@dimen/dimen_16dp"
+        android:text="Open when you are on a potentially dangerous journey"
+        android:textColor="@color/colorText"
+        android:textSize="@dimen/dimen_18sp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="@id/green_card"
+        app:layout_constraintTop_toBottomOf="@id/tv_guard" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="@dimen/dimen_120dp"
+        android:layout_height="@dimen/dimen_180dp"
+        android:layout_margin="@dimen/dimen_16dp"
+        android:elevation="@dimen/dimen_16dp"
+        android:src="@drawable/ic_shield"
+        app:layout_constraintBottom_toBottomOf="@id/green_card"
+        app:layout_constraintEnd_toEndOf="@id/green_card"
+        app:layout_constraintTop_toTopOf="@id/green_card" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

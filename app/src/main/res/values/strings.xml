@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">SafeDot - Family Safety &amp; Care</string>
+    <string name="api_key">AIzaSyC29cndUdlygszkvzwyMpmnhwnAbUPRgZc</string>
+
+    <string name="my_family">My Family</string>
+    <string name="todo">TODO</string>
+    <string name="wifi">WiFi</string>
+    <string name="_223m">223M</string>
+    <string name="_90">90%</string>
+    <string name="_16_40">16:40</string>
+    <string name="address">9th buildind, 2nd floor, maldiv road, manali 9th buildind, 2nd floor 9th buildind, 2nd floor,</string>
+    <string name="name">Dharmin Tandel</string>
+    <string name="home">Home</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="guard">Guard</string>
+    <string name="profile">Profile</string>
+</resources>
