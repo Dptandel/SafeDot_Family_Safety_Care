@@ -1,26 +1,30 @@
 package com.app.safedot_familysafetycare.fragments
 
 import android.annotation.SuppressLint
-import android.content.ContentResolver
 import android.os.Bundle
 import android.provider.ContactsContract
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.app.safedot_familysafetycare.R
 import com.app.safedot_familysafetycare.adapters.InviteAdapter
 import com.app.safedot_familysafetycare.adapters.MemberAdapter
+import com.app.safedot_familysafetycare.databases.SafeDotDB
 import com.app.safedot_familysafetycare.databinding.FragmentHomeBinding
 import com.app.safedot_familysafetycare.models.Contact
 import com.app.safedot_familysafetycare.models.Member
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentHomeBinding
+
+    private val contactsList: ArrayList<Contact> = ArrayList()
+
+    private lateinit var inviteAdapter: InviteAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,13 +32,13 @@ class HomeFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -53,24 +57,44 @@ class HomeFragment : Fragment() {
         )
 
         val memberAdapter = MemberAdapter(this.requireContext(), listMembers)
-        binding.rvMembers.layoutManager =
-            LinearLayoutManager(requireContext())
+        binding.rvMembers.layoutManager = LinearLayoutManager(requireContext())
         binding.rvMembers.adapter = memberAdapter
 
         // For Invite Contacts
 
-        val inviteAdapter = InviteAdapter(this.requireContext(), fetchContacts())
+        inviteAdapter = InviteAdapter(this.requireContext(), contactsList)
+
+        fetchDBContacts()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            insertDBContacts(fetchContacts())
+        }
+
         binding.rvInvites.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvInvites.adapter = inviteAdapter
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private fun fetchDBContacts() {
+        val db = SafeDotDB.getDatabase(requireContext())
+        db.contactDao().getAllContacts().observe(viewLifecycleOwner) {
+            contactsList.clear()
+            contactsList.addAll(it)
+            inviteAdapter.notifyDataSetChanged()
+        }
+    }
+
+    private suspend fun insertDBContacts(contactsList: ArrayList<Contact>) {
+        val db = SafeDotDB.getDatabase(requireContext())
+        db.contactDao().insertAll(contactsList)
+    }
+
     @SuppressLint("Range")
     private fun fetchContacts(): ArrayList<Contact> {
         val cr = requireActivity().contentResolver
         val cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null)
-
         val listContacts: ArrayList<Contact> = ArrayList()
 
         if (cursor != null && cursor.count > 0) {
@@ -95,17 +119,15 @@ class HomeFragment : Fragment() {
                         while (pCursor.moveToNext()) {
                             val phoneNum =
                                 pCursor.getString(pCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-
                             listContacts.add(Contact(name, phoneNum))
                         }
+
                         pCursor.close()
                     }
                 }
             }
 
-            if (cursor != null) {
-                cursor.close()
-            }
+            cursor.close()
         }
         return listContacts
     }

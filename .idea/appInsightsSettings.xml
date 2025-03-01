@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.app.safedot_familysafetycare" />
+                  <option name="mobileSdkAppId" value="1:226553764400:android:19ffb99075bc75bf336bf5" />
+                  <option name="projectId" value="safedot-cf69a" />
+                  <option name="projectNumber" value="226553764400" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

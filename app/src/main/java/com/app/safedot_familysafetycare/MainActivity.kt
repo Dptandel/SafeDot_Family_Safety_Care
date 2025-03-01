@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
 
     private val permissions = arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
-        Manifest.permission.CAMERA,
         Manifest.permission.READ_CONTACTS
     )
 
@@ -87,10 +86,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun openCamera() {
+    /*private fun openCamera() {
         val intent = Intent("android.media.action.IMAGE_CAPTURE")
         startActivity(intent)
-    }
+    }*/
 
     private fun allPermissionGranted(): Boolean {
         for (item in permissions) {

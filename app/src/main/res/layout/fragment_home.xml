@@ -15,7 +15,8 @@
         android:contentDescription="@string/todo"
         android:src="@drawable/ic_location"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/rv_members"/>
 
     <TextView
         android:id="@+id/tv_title"
@@ -28,16 +29,19 @@
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/rv_members"/>
 
     <ImageView
+        android:id="@+id/menu"
         android:layout_width="@dimen/dimen_36dp"
         android:layout_height="@dimen/dimen_36dp"
         android:layout_margin="@dimen/dimen_16dp"
         android:contentDescription="@string/todo"
         android:src="@drawable/ic_menu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/rv_members"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_members"

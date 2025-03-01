@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "226553764400",
+    "project_id": "safedot-cf69a",
+    "storage_bucket": "safedot-cf69a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226553764400:android:19ffb99075bc75bf336bf5",
+        "android_client_info": {
+          "package_name": "com.app.safedot_familysafetycare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "226553764400-01dohlgphlmir714k0c38qpejqg8bi23.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.safedot_familysafetycare",
+            "certificate_hash": "d39b15d9606e3b65853054530220fa71239229ad"
+          }
+        },
+        {
+          "client_id": "226553764400-gec2lpohqqner80tavl9b8kabnbh5k2s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKoVDPMjnhbIPe43PT6676dozkj02rNP8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "226553764400-gec2lpohqqner80tavl9b8kabnbh5k2s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
