@@ -1,6 +1,7 @@
 package com.app.safedot_familysafetycare.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.LayoutInflater
@@ -8,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.app.safedot_familysafetycare.adapters.InviteAdapter
+import com.app.safedot_familysafetycare.adapters.ContactInviteAdapter
 import com.app.safedot_familysafetycare.adapters.MemberAdapter
 import com.app.safedot_familysafetycare.databases.SafeDotDB
 import com.app.safedot_familysafetycare.databinding.FragmentHomeBinding
@@ -24,11 +25,18 @@ class HomeFragment : Fragment() {
 
     private val contactsList: ArrayList<Contact> = ArrayList()
 
-    private lateinit var inviteAdapter: InviteAdapter
+    private lateinit var contactInviteAdapter: ContactInviteAdapter
+
+    private lateinit var mContext: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
     }
 
     override fun onCreateView(
@@ -56,13 +64,13 @@ class HomeFragment : Fragment() {
             Member("Jaimin Patel")
         )
 
-        val memberAdapter = MemberAdapter(this.requireContext(), listMembers)
-        binding.rvMembers.layoutManager = LinearLayoutManager(requireContext())
+        val memberAdapter = MemberAdapter(mContext, listMembers)
+        binding.rvMembers.layoutManager = LinearLayoutManager(mContext)
         binding.rvMembers.adapter = memberAdapter
 
         // For Invite Contacts
 
-        inviteAdapter = InviteAdapter(this.requireContext(), contactsList)
+        contactInviteAdapter = ContactInviteAdapter(mContext, contactsList)
 
         fetchDBContacts()
 
@@ -71,23 +79,23 @@ class HomeFragment : Fragment() {
         }
 
         binding.rvInvites.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.rvInvites.adapter = inviteAdapter
+            LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvInvites.adapter = contactInviteAdapter
 
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun fetchDBContacts() {
-        val db = SafeDotDB.getDatabase(requireContext())
+        val db = SafeDotDB.getDatabase(mContext)
         db.contactDao().getAllContacts().observe(viewLifecycleOwner) {
             contactsList.clear()
             contactsList.addAll(it)
-            inviteAdapter.notifyDataSetChanged()
+            contactInviteAdapter.notifyDataSetChanged()
         }
     }
 
     private suspend fun insertDBContacts(contactsList: ArrayList<Contact>) {
-        val db = SafeDotDB.getDatabase(requireContext())
+        val db = SafeDotDB.getDatabase(mContext)
         db.contactDao().insertAll(contactsList)
     }
 
