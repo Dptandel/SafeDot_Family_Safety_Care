@@ -64,10 +64,15 @@ dependencies {
     testImplementation("androidx.room:room-testing:2.6.1")
 
     //Google SignIn Firebase
-    implementation (platform("com.google.firebase:firebase-bom:31.5.0"))
-    implementation ("com.google.firebase:firebase-auth-ktx")
-    implementation ("com.google.android.gms:play-services-auth:20.5.0")
+    implementation(platform("com.google.firebase:firebase-bom:31.5.0"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.android.gms:play-services-auth:20.5.0")
 
     //FusedLocation
-    implementation ("com.google.android.gms:play-services-location:17.0.0")
+    implementation("com.google.android.gms:play-services-location:17.0.0")
+
+    //Glide & CircleImageView
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+
 }

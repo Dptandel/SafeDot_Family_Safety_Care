@@ -6,8 +6,8 @@
     <item android:title="@string/dashboard"
         android:id="@+id/dashboard"
         android:icon="@drawable/dashboard" />
-    <item android:title="@string/guard"
-        android:id="@+id/guard"
+    <item android:title="@string/security"
+        android:id="@+id/security"
         android:icon="@drawable/guard" />
     <item android:title="@string/profile"
         android:id="@+id/profile"

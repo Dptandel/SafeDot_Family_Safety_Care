@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:itemIconTint="@drawable/nav_item_colors"
-        app:labelVisibilityMode="unlabeled"
+        app:itemTextColor="@color/green"
         android:background="@color/white"
         app:itemActiveIndicatorStyle="@color/white"
         app:itemRippleColor="@color/white"

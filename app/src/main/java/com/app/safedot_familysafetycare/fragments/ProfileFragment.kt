@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.app.safedot_familysafetycare.LoginActivity
 import com.app.safedot_familysafetycare.R
 import com.app.safedot_familysafetycare.databinding.FragmentProfileBinding
+import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -56,7 +57,11 @@ class ProfileFragment : Fragment() {
 
         if (user != null) {
             val userName = user.displayName
-            binding.username.text = "Welcome, $userName"
+            val email = user.email
+            val photoUrl = user.photoUrl
+            binding.username.text = userName
+            binding.email.text = email
+            Glide.with(this.requireContext()).load(photoUrl).placeholder(R.drawable.profile).into(binding.profilePic)
         } else {
             // Handle the case where the user is not signed in
         }

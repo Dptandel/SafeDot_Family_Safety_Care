@@ -2,7 +2,6 @@
     <string name="app_name">SafeDot - Family Safety &amp; Care</string>
     <string name="api_key">AIzaSyC29cndUdlygszkvzwyMpmnhwnAbUPRgZc</string>
 
-    <string name="my_family">My Family</string>
     <string name="todo">TODO</string>
     <string name="wifi">WiFi</string>
     <string name="_223m">223M</string>
@@ -16,4 +15,5 @@
     <string name="profile">Profile</string>
     <string name="default_web_client_id">226553764400-gec2lpohqqner80tavl9b8kabnbh5k2s.apps.googleusercontent.com</string>
     <string name="login_text">Log in now to keep your family\'s circle safe and connected.</string>
+    <string name="security">Security</string>
 </resources>

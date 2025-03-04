@@ -8,7 +8,7 @@ import com.app.safedot_familysafetycare.databinding.ItemInviteNameBinding
 
 class InvitesAdapter(
     private val context: Context,
-    private val invitesList: List<String>,
+    private val invitesList: List<Pair<String, String>>,
     private val onActionClick: OnActionClick
 ) :
     RecyclerView.Adapter<InvitesAdapter.ViewHolder>() {
@@ -25,15 +25,18 @@ class InvitesAdapter(
     }
 
     override fun onBindViewHolder(holder: InvitesAdapter.ViewHolder, position: Int) {
-        val inviteName = invitesList[position]
-        holder.binding.name.text = inviteName
+        val invitePair = invitesList[position]
+        val inviteEmail = invitePair.first
+        val inviteName = invitePair.second
+
+        holder.binding.name.text = inviteName // Display the name
 
         holder.binding.accept.setOnClickListener {
-            onActionClick.onAcceptClick(inviteName)
+            onActionClick.onAcceptClick(inviteEmail)
         }
 
         holder.binding.deny.setOnClickListener {
-            onActionClick.onDenyClick(inviteName)
+            onActionClick.onDenyClick(inviteEmail)
         }
     }
 

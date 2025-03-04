@@ -1,6 +1,7 @@
 package com.app.safedot_familysafetycare
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -10,15 +11,13 @@ import android.os.Looper
 import android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.app.safedot_familysafetycare.databinding.ActivityMainBinding
-import com.app.safedot_familysafetycare.fragments.DashboardFragment
-import com.app.safedot_familysafetycare.fragments.GuardFragment
+import com.app.safedot_familysafetycare.fragments.SecurityFragment
 import com.app.safedot_familysafetycare.fragments.HomeFragment
 import com.app.safedot_familysafetycare.fragments.MapsFragment
 import com.app.safedot_familysafetycare.fragments.ProfileFragment
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         Manifest.permission.READ_CONTACTS
     )
 
-    val permissionCode = 78
+    private val permissionCode = 78
 
     private lateinit var binding: ActivityMainBinding
 
@@ -47,17 +46,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         if (isAllPermissionsGranted()) {
-            if (isLocationEnabled(this)) {
-                setUpLocationListener()
-            } else {
-                showGPSNotEnabledDialog(this)
-            }
+            performInitialSetup()
         } else {
             askForPermission()
         }
 
         binding.bottomNavigation.setOnItemSelectedListener { item ->
-
             when (item.itemId) {
                 R.id.home -> {
                     inflateFragment(HomeFragment())
@@ -67,15 +61,14 @@ class MainActivity : AppCompatActivity() {
                     inflateFragment(MapsFragment())
                 }
 
-                R.id.guard -> {
-                    inflateFragment(GuardFragment())
+                R.id.security -> {
+                    inflateFragment(SecurityFragment())
                 }
 
                 R.id.profile -> {
                     inflateFragment(ProfileFragment())
                 }
             }
-
             true
         }
 
@@ -107,10 +100,17 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
+    private fun performInitialSetup() {
+        if (isLocationEnabled(this)) {
+            setUpLocationListener()
+        } else {
+            showGPSNotEnabledDialog(this)
+        }
+    }
+
+    @SuppressLint("VisibleForTests")
     private fun setUpLocationListener() {
         val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-
-        // for getting the current location update after every 2 seconds with high accuracy
         val locationRequest = LocationRequest().setInterval(2000).setFastestInterval(2000)
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
 
@@ -159,14 +159,14 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    fun isLocationEnabled(context: Context): Boolean {
+    private fun isLocationEnabled(context: Context): Boolean {
         val locationManager: LocationManager =
             context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
     }
 
-    fun showGPSNotEnabledDialog(context: Context) {
+    private fun showGPSNotEnabledDialog(context: Context) {
         AlertDialog.Builder(context)
             .setTitle("Enable GPS")
             .setMessage("Required for Safety")
@@ -177,7 +177,7 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    fun isAllPermissionsGranted(): Boolean {
+    private fun isAllPermissionsGranted(): Boolean {
         for (item in permissions) {
             if (ContextCompat
                     .checkSelfPermission(
@@ -210,18 +210,16 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == permissionCode) {
             if (allPermissionGranted()) {
-                // openCamera()
-                setUpLocationListener()
+                performInitialSetup()
             } else {
-
+                Toast.makeText(
+                    this,
+                    "Permissions are required for this app to function correctly.",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
-
-    /*private fun openCamera() {
-        val intent = Intent("android.media.action.IMAGE_CAPTURE")
-        startActivity(intent)
-    }*/
 
     private fun allPermissionGranted(): Boolean {
         for (item in permissions) {

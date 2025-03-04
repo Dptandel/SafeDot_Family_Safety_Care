@@ -9,14 +9,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.safedot_familysafetycare.adapters.InvitesAdapter
-import com.app.safedot_familysafetycare.databinding.FragmentGuardBinding
+import com.app.safedot_familysafetycare.databinding.FragmentSecurityBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.firestore
 
-class GuardFragment : Fragment(), InvitesAdapter.OnActionClick {
+class SecurityFragment : Fragment(), InvitesAdapter.OnActionClick {
 
-    private lateinit var binding: FragmentGuardBinding
+    private lateinit var binding: FragmentSecurityBinding
 
     private lateinit var mContext: Context
 
@@ -34,7 +35,7 @@ class GuardFragment : Fragment(), InvitesAdapter.OnActionClick {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentGuardBinding.inflate(inflater, container, false)
+        binding = FragmentSecurityBinding.inflate(inflater, container, false)
 
         binding.sendInvite.setOnClickListener {
             sendInvite()
@@ -56,10 +57,11 @@ class GuardFragment : Fragment(), InvitesAdapter.OnActionClick {
             .document(FirebaseAuth.getInstance().currentUser?.email.toString())
             .collection("invites").get().addOnCompleteListener {
                 if (it.isSuccessful) {
-                    val list: ArrayList<String> = ArrayList()
+                    val list: ArrayList<Pair<String, String>> = ArrayList()
                     for (item in it.result) {
                         if (item.get("invite_status") == 0L) {
-                            list.add(item.id)
+                            val name = item.getString("sender_name") ?: "Unknown"
+                            list.add(Pair(item.id, name))
                         }
                     }
 
@@ -79,28 +81,37 @@ class GuardFragment : Fragment(), InvitesAdapter.OnActionClick {
 
         val firestore = Firebase.firestore
 
-        val data = hashMapOf(
-            "invite_status" to 0
-        )
-
         val senderMail = FirebaseAuth.getInstance().currentUser?.email.toString()
 
         firestore.collection("users")
-            .document(mail)
-            .collection("invites")
-            .document(senderMail).set(data)
-            .addOnSuccessListener {
+            .document(senderMail).get().addOnSuccessListener { senderDocument ->
+                val senderName = senderDocument.getString("name") ?: "Unknown Sender"
 
-            }
-            .addOnFailureListener {
+                val data = hashMapOf(
+                    "invite_status" to 0,
+                    "sender_name" to senderName
+                )
 
+                firestore.collection("users")
+                    .document(mail)
+                    .collection("invites")
+                    .document(senderMail).set(data)
+                    .addOnSuccessListener {
+                        binding.inviteEmail.setText("")
+                    }
+                    .addOnFailureListener {
+
+                    }
+            }.addOnFailureListener {
+                Log.e("TAG", "error getting sender name", it)
             }
+
     }
 
     companion object {
 
         @JvmStatic
-        fun newInstance() = GuardFragment()
+        fun newInstance() = SecurityFragment()
     }
 
     override fun onAcceptClick(mail: String) {
@@ -108,16 +119,13 @@ class GuardFragment : Fragment(), InvitesAdapter.OnActionClick {
 
         val firestore = Firebase.firestore
 
-        val data = hashMapOf(
-            "invite_status" to 1
-        )
-
         val senderMail = FirebaseAuth.getInstance().currentUser?.email.toString()
 
         firestore.collection("users")
             .document(senderMail)
             .collection("invites")
-            .document(mail).set(data)
+            .document(mail)
+            .update(mapOf("invite_status" to 1))
             .addOnSuccessListener {
 
             }
@@ -131,16 +139,13 @@ class GuardFragment : Fragment(), InvitesAdapter.OnActionClick {
 
         val firestore = Firebase.firestore
 
-        val data = hashMapOf(
-            "invite_status" to -1
-        )
-
         val senderMail = FirebaseAuth.getInstance().currentUser?.email.toString()
 
         firestore.collection("users")
             .document(senderMail)
             .collection("invites")
-            .document(mail).set(data)
+            .document(mail)
+            .update(mapOf("invite_status" to -1))
             .addOnSuccessListener {
 
             }
