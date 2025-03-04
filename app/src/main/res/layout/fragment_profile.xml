@@ -53,7 +53,7 @@
         android:layout_marginTop="@dimen/dimen_36dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Name"
-        android:textSize="@dimen/dimen_24sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_pic" />
 
@@ -62,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_36dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
         app:cardCornerRadius="@dimen/dimen_16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_name">
@@ -73,10 +73,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/poppins_regular"
-            android:padding="@dimen/dimen_16dp"
+            android:padding="@dimen/dimen_8dp"
             android:text="Dharmin Tandel"
             android:textColor="@color/black"
-            android:textSize="@dimen/dimen_24sp" />
+            android:textSize="20sp" />
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -87,7 +87,7 @@
         android:layout_marginTop="@dimen/dimen_36dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Email"
-        android:textSize="@dimen/dimen_24sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_name" />
 
@@ -96,7 +96,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_36dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
         app:cardCornerRadius="@dimen/dimen_16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_email">
@@ -107,10 +107,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/poppins_regular"
-            android:padding="@dimen/dimen_16dp"
+            android:padding="@dimen/dimen_8dp"
             android:text="dharmin@gmail.com"
             android:textColor="@color/black"
-            android:textSize="@dimen/dimen_24sp" />
+            android:textSize="20sp" />
     </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatButton

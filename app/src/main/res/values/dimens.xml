@@ -12,4 +12,5 @@
     <dimen name="dimen_145dp">145dp</dimen>
     <dimen name="dimen_12dp">12dp</dimen>
     <dimen name="dimen_14sp">14sp</dimen>
+    <dimen name="dimen_24dp">24dp</dimen>
 </resources>
