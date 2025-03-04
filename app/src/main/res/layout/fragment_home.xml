@@ -11,9 +11,9 @@
     <ImageView
         android:layout_width="@dimen/dimen_36dp"
         android:layout_height="@dimen/dimen_36dp"
-        android:layout_margin="@dimen/dimen_16dp"
+        android:layout_marginStart="@dimen/dimen_16dp"
         android:contentDescription="@string/todo"
-        android:src="@drawable/ic_location"
+        android:src="@drawable/location"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/rv_members"/>
@@ -24,8 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_16dp"
         android:text="@string/my_family"
-        android:textSize="@dimen/dimen_24sp"
+        android:textSize="22sp"
         android:textStyle="bold"
+        android:fontFamily="@font/poppins_semibold"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,9 +37,9 @@
         android:id="@+id/menu"
         android:layout_width="@dimen/dimen_36dp"
         android:layout_height="@dimen/dimen_36dp"
-        android:layout_margin="@dimen/dimen_16dp"
+        android:layout_marginEnd="@dimen/dimen_16dp"
         android:contentDescription="@string/todo"
-        android:src="@drawable/ic_menu"
+        android:src="@drawable/menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/rv_members"/>
@@ -65,8 +66,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_invites"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="@dimen/dimen_8dp"
+            android:layout_height="160dp"
             tools:listitem="@layout/item_invite" />
 
     </com.google.android.material.card.MaterialCardView>

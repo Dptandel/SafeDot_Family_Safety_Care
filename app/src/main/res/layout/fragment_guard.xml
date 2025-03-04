@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_16dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Security"
         android:textColor="@color/black"
         android:textSize="@dimen/dimen_24sp"
@@ -26,7 +27,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_180dp"
         android:layout_margin="@dimen/dimen_16dp"
-        android:elevation="@dimen/dimen_16dp"
         app:cardBackgroundColor="@color/pink"
         app:cardCornerRadius="@dimen/dimen_16dp"
         app:cardElevation="@dimen/dimen_16dp"
@@ -38,8 +38,10 @@
         android:id="@+id/tv_sos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_16dp"
+        android:layout_marginStart="@dimen/dimen_16dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
         android:elevation="@dimen/dimen_16dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="SOS"
         android:textColor="@color/white"
         android:textSize="@dimen/dimen_24sp"
@@ -51,9 +53,9 @@
         android:id="@+id/tv_sos_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_16dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginStart="@dimen/dimen_16dp"
         android:elevation="@dimen/dimen_16dp"
+        android:fontFamily="@font/poppins_regular"
         android:text="In case of emergency, keep telling family members to contact me"
         android:textColor="@color/colorText"
         android:textSize="@dimen/dimen_18sp"
@@ -67,7 +69,7 @@
         android:layout_height="@dimen/dimen_180dp"
         android:layout_margin="@dimen/dimen_16dp"
         android:elevation="@dimen/dimen_16dp"
-        android:src="@drawable/ic_sos"
+        android:src="@drawable/sos"
         app:layout_constraintBottom_toBottomOf="@id/pink_card"
         app:layout_constraintEnd_toEndOf="@id/pink_card"
         app:layout_constraintTop_toTopOf="@id/pink_card" />
@@ -88,8 +90,10 @@
         android:id="@+id/tv_guard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_16dp"
+        android:layout_marginStart="@dimen/dimen_16dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
         android:elevation="@dimen/dimen_16dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Guard"
         android:textColor="@color/white"
         android:textSize="@dimen/dimen_24sp"
@@ -101,8 +105,9 @@
         android:id="@+id/tv_guard_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_16dp"
+        android:layout_marginStart="@dimen/dimen_16dp"
         android:elevation="@dimen/dimen_16dp"
+        android:fontFamily="@font/poppins_regular"
         android:text="Open when you are on a potentially dangerous journey"
         android:textColor="@color/colorText"
         android:textSize="@dimen/dimen_18sp"
@@ -116,7 +121,7 @@
         android:layout_height="@dimen/dimen_180dp"
         android:layout_margin="@dimen/dimen_16dp"
         android:elevation="@dimen/dimen_16dp"
-        android:src="@drawable/ic_shield"
+        android:src="@drawable/shield"
         app:layout_constraintBottom_toBottomOf="@id/green_card"
         app:layout_constraintEnd_toEndOf="@id/green_card"
         app:layout_constraintTop_toTopOf="@id/green_card" />
@@ -142,7 +147,8 @@
                 android:id="@+id/invite_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Email Address to Invite"
+                android:hint="Email Address"
+                android:fontFamily="@font/poppins_regular"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -154,6 +160,7 @@
             android:layout_marginHorizontal="@dimen/dimen_8dp"
             android:background="@color/pink"
             android:text="Invite"
+            android:fontFamily="@font/poppins_semibold"
             android:textColor="@color/white" />
     </LinearLayout>
 
@@ -165,7 +172,8 @@
         android:layout_marginTop="@dimen/dimen_8dp"
         android:text="Your Invites"
         android:textColor="@color/black"
-        android:textSize="@dimen/dimen_16sp"
+        android:textSize="@dimen/dimen_18sp"
+        android:fontFamily="@font/poppins_semibold"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll_send_invites" />
@@ -174,10 +182,10 @@
         android:id="@+id/rv_your_invites"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/dimen_16dp"
+        android:layout_marginHorizontal="@dimen/dimen_16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_your_invites"
-        tools:listitem="@layout/item_invite_mail" />
+        tools:listitem="@layout/item_invite_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

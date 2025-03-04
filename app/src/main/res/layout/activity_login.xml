@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/login"
-        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintVertical_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,32 +22,32 @@
         android:id="@+id/tv_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login_text"
-        android:textSize="20sp"
+        android:fontFamily="@font/poppins_regular"
         android:padding="@dimen/dimen_16sp"
+        android:text="@string/login_text"
         android:textAlignment="center"
         android:textColor="@color/black"
+        android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_login"
-        app:layout_constraintBottom_toTopOf="@+id/btn_google_sign_in"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_login" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_google_sign_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_btn"
         android:drawableStart="@drawable/google"
         android:drawablePadding="@dimen/dimen_16dp"
-        android:background="@drawable/rounded_btn"
+        android:padding="@dimen/dimen_16dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
         android:text="Sign in with Google"
         android:textAllCaps="false"
-        android:padding="@dimen/dimen_16dp"
         android:textColor="@color/black"
         android:textSize="@dimen/dimen_18sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_login" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
