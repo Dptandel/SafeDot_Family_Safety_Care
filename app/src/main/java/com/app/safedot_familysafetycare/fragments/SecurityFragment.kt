@@ -12,7 +12,6 @@ import com.app.safedot_familysafetycare.adapters.InvitesAdapter
 import com.app.safedot_familysafetycare.databinding.FragmentSecurityBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.firestore
 
 class SecurityFragment : Fragment(), InvitesAdapter.OnActionClick {
@@ -23,7 +22,6 @@ class SecurityFragment : Fragment(), InvitesAdapter.OnActionClick {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onAttach(context: Context) {
@@ -46,7 +44,6 @@ class SecurityFragment : Fragment(), InvitesAdapter.OnActionClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         getInvites()
     }
 
@@ -64,9 +61,7 @@ class SecurityFragment : Fragment(), InvitesAdapter.OnActionClick {
                             list.add(Pair(item.id, name))
                         }
                     }
-
                     Log.d("TAG", "getInvites: $list")
-
                     val adapter = InvitesAdapter(mContext, list, this)
                     binding.rvYourInvites.layoutManager = LinearLayoutManager(mContext)
                     binding.rvYourInvites.adapter = adapter
@@ -100,16 +95,14 @@ class SecurityFragment : Fragment(), InvitesAdapter.OnActionClick {
                         binding.inviteEmail.setText("")
                     }
                     .addOnFailureListener {
-
+                        Log.e("TAG", "Error sending invite", it)
                     }
             }.addOnFailureListener {
-                Log.e("TAG", "error getting sender name", it)
+                Log.e("TAG", "Error getting sender name", it)
             }
-
     }
 
     companion object {
-
         @JvmStatic
         fun newInstance() = SecurityFragment()
     }
@@ -119,19 +112,48 @@ class SecurityFragment : Fragment(), InvitesAdapter.OnActionClick {
 
         val firestore = Firebase.firestore
 
-        val senderMail = FirebaseAuth.getInstance().currentUser?.email.toString()
+        val senderMail = mail // Sender's email from invite document ID
+        val recipientMail = FirebaseAuth.getInstance().currentUser?.email.toString() // Recipient email
 
         firestore.collection("users")
-            .document(senderMail)
+            .document(recipientMail)
             .collection("invites")
-            .document(mail)
+            .document(senderMail)
             .update(mapOf("invite_status" to 1))
             .addOnSuccessListener {
+                firestore.collection("users")
+                    .document(recipientMail)
+                    .get()
+                    .addOnSuccessListener { recipientDocument ->
+                        val recipientName = recipientDocument.getString("name") ?: "Unknown"
 
+                        firestore.collection("users")
+                            .document(senderMail)
+                            .collection("members")
+                            .document(recipientMail)
+                            .set(mapOf("name" to recipientName))
+                            .addOnSuccessListener {
+                                getInvites()
+                                notifyHomeFragmentMembersChanged(senderMail) // Pass senderMail
+                            }
+                            .addOnFailureListener {
+                                Log.e("TAG", "Error adding member", it)
+                            }
+                    }
+                    .addOnFailureListener {
+                        Log.e("TAG", "Error getting recipient", it)
+                    }
             }
             .addOnFailureListener {
-
+                Log.e("TAG", "Error updating invite", it)
             }
+    }
+
+    private fun notifyHomeFragmentMembersChanged(senderMail: String) {
+        val homeFragment = parentFragmentManager.findFragmentByTag("HomeFragment") as? HomeFragment
+        if (homeFragment != null && FirebaseAuth.getInstance().currentUser?.email.toString() == senderMail) {
+            homeFragment.refreshMembers()
+        }
     }
 
     override fun onDenyClick(mail: String) {
@@ -139,18 +161,18 @@ class SecurityFragment : Fragment(), InvitesAdapter.OnActionClick {
 
         val firestore = Firebase.firestore
 
-        val senderMail = FirebaseAuth.getInstance().currentUser?.email.toString()
+        val recipientMail = FirebaseAuth.getInstance().currentUser?.email.toString()
 
         firestore.collection("users")
-            .document(senderMail)
+            .document(recipientMail)
             .collection("invites")
             .document(mail)
             .update(mapOf("invite_status" to -1))
             .addOnSuccessListener {
-
+                getInvites()
             }
             .addOnFailureListener {
-
+                Log.e("TAG", "Error denying invite", it)
             }
     }
 }

@@ -3,11 +3,11 @@ package com.app.safedot_familysafetycare.fragments
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.app.safedot_familysafetycare.LoginActivity
 import com.app.safedot_familysafetycare.R
 import com.app.safedot_familysafetycare.databinding.FragmentProfileBinding
@@ -22,17 +22,12 @@ import com.google.firebase.ktx.Firebase
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
-
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var mAuth: FirebaseAuth
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
@@ -61,7 +56,8 @@ class ProfileFragment : Fragment() {
             val photoUrl = user.photoUrl
             binding.username.text = userName
             binding.email.text = email
-            Glide.with(this.requireContext()).load(photoUrl).placeholder(R.drawable.profile).into(binding.profilePic)
+            Glide.with(this.requireContext()).load(photoUrl).placeholder(R.drawable.profile)
+                .into(binding.profilePic)
         } else {
             // Handle the case where the user is not signed in
         }
@@ -73,18 +69,15 @@ class ProfileFragment : Fragment() {
 
     private fun signOutAndLogin() {
         mAuth.signOut()
-
         mGoogleSignInClient.signOut().addOnCompleteListener {
             Toast.makeText(this.requireContext(), "Logout Successfully!!!", Toast.LENGTH_SHORT)
                 .show()
-
             startActivity(Intent(this.requireContext(), LoginActivity::class.java))
             activity?.finish()
         }
     }
 
     companion object {
-
         @JvmStatic
         fun newInstance() = ProfileFragment()
     }

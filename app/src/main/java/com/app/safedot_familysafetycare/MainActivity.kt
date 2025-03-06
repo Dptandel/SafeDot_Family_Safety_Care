@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     private val permissions = arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
-        Manifest.permission.READ_CONTACTS
+//        Manifest.permission.ACCESS_COARSE_LOCATION
     )
 
     private val permissionCode = 78
